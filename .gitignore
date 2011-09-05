@@ -1,0 +1,9 @@
+*.hi
+dist
+log
+!.gitignore
+*.o
+.dist-scion
+.hsproject
+.project
+*~
