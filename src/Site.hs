@@ -21,6 +21,7 @@ import           Snap.Types
 import           Text.Templating.Heist
 
 import           Application
+import qualified Controllers.Echo as Echo
 
 
 ------------------------------------------------------------------------------
@@ -38,20 +39,12 @@ index = ifTop $ heistLocal (bindSplices indexSplices) $ render "index"
         ]
 
 
-------------------------------------------------------------------------------
--- | Renders the echo page.
-echo :: Application ()
-echo = do
-    message <- decodedParam "stuff"
-    heistLocal (bindString "message" (T.decodeUtf8 message)) $ render "echo"
-  where
-    decodedParam p = fromMaybe "" <$> getParam p
 
 
 ------------------------------------------------------------------------------
 -- | The main entry point handler.
 site :: Application ()
 site = route [ ("/",            index)
-             , ("/echo/:stuff", echo)
+             , ("/echo/:stuff", Echo.echo)
              ]
        <|> serveDirectory "resources/static"
